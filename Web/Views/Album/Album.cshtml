@@ -1,0 +1,45 @@
+﻿@model List<Entity.Album>
+@{
+    ViewBag.Title = "Albums";
+}
+<h2>@ViewBag.Title.</h2>
+
+<p>Use this area to Add/Edit/Remove your albums.</p>
+
+<td>@Html.ActionLink("Create Album", "AlbumDetail", "Album", null, new { @class = "btn btn-success" })</td>
+
+<table width="100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Artist</th>
+            <th>Type</th>
+            <th>Stock</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Artist</td>
+                <td>@item.Type.ToString()</td>
+                <td>@item.Stock</td>
+                <td>@Html.ActionLink("Edit", "AlbumDetail", "Album", new { id = item.Id }, new { @class = "btn btn-info" })</td>
+                <td>
+                    @using (Html.BeginForm("DeleteAlbum", "Album", FormMethod.Post))
+                    {
+                        @Html.Hidden("id", (int)item.Id);
+                        <input type="submit" class="btn btn-danger" value="Remove" />
+                    }
+                </td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
